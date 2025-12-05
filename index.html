@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>비밀 편지함 💌🔐</title>
+
+  <!-- 🔥 SNS 미리보기 카드 설정 (최종 적용됨) -->
+  <meta property="og:title" content="몽몽이가 보낸 비밀 편지 💌">
+  <meta property="og:description" content="열어보기 전에 심장 준비해…">
+  <meta property="og:image" content="https://raw.githubusercontent.com/juna915/our-secret-letter-0606/main/og_image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://juna915.github.io/our-secret-letter-0606/">
+
+  <!-- 🔥 Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="몽몽이가 보낸 비밀 편지 💌">
+  <meta name="twitter:description" content="열어보기 전에 심장 준비해…">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/juna915/our-secret-letter-0606/main/og_image.png">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffd6e0, #e7c6ff, #bde0fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* 전체 박스 */
+    .container {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 28px;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 22px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+      color: #444;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      margin-bottom: 14px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #444;
+      display: block;
+    }
+
+    input[type="password"],
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+      background: #fff;
+      border-color: #ff4d6d;
+      box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.2);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      white-space: pre-wrap;
+    }
+
+    button {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.15s;
+    }
+
+    .btn-primary {
+      background: #ff4d6d;
+      color: white;
+      width: 100%;
+      margin-top: 6px;
+      box-shadow: 0 8px 20px rgba(255, 77, 109, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: #e63958;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f2f2f2;
+      color: #444;
+    }
+
+    .btn-secondary:hover {
+      background: #e6e6e6;
+    }
+
+    .hidden { display: none; }
+
+    .preview {
+      margin-top: 20px;
+      padding: 12px;
+      background: #fff9fb;
+      border: 1px solid #ffd9e0;
+      border-radius: 14px;
+      white-space: pre-wrap;
+      max-height: 260px;
+      overflow-y: auto;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .date {
+      color: #999;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔐 비밀번호 입력 화면 -->
+  <div class="container" id="passwordScreen">
+    <h1>비밀 편지함 🔐</h1>
+    <p class="subtitle">비밀번호를 입력하면 두 사람만 볼 수 있는 편지가 열려요.</p>
+
+    <label for="pwInput">비밀번호</label>
+    <input type="password" id="pwInput" placeholder="4자리 비밀번호 입력">
+
+    <button class="btn-primary" id="pwBtn">열기</button>
+    <p id="pwError" style="color:#ff4d6d; margin-top:10px; font-size:13px; display:none;">비밀번호가 틀렸어요!</p>
+  </div>
+
+
+  <!-- 💌 편지 작성 화면 -->
+  <div class="container hidden" id="letterScreen">
+    <h1>둘만의 비밀 편지함 💌</h1>
+    <p class="subtitle">ISTJ가 좋아하는 '정확하고 따뜻한 표현'으로 편지를 구성했어요.</p>
+
+    <div class="input-field">
+      <label>받는 사람</label>
+      <input id="toName" value="○○에게">
+    </div>
+
+    <div class="input-field">
+      <label>보내는 사람</label>
+      <input id="fromName" value="몽몽이가">
+    </div>
+
+    <div class="input-field">
+      <label>편지 내용</label>
+      <textarea id="message">
+요즘 너와 있었던 순간들을 차분하게 돌아보다가, 말로만 넘기기 아까운 마음들이 있어서 이렇게 정리해보고 싶었어.
+
+나는 네가 힘들거나 감정적으로 변할 때마다 힘들게 혼자 마음속으로 고민하고 있다는 걸 알게 됐어. 
+그 방식이 네 성격이고, 너만의 장점이라는 걸 알게 되면서 나도 자연스럽게 더 안정적으로 생각하려고 노력하게 됐어.
+
+그리고 너는 말과 행동이 일치하는 사람이야.
+작은 약속도 쉽게 넘기지 않고, 책임지고 지키려고 하는 모습을 볼 때마다 
+“이 사람은 믿을 수 있는 사람이구나”라는 확신이 생겨.
+그래서 더욱이 나도 힘든 일이 있을 때마다 너한테 기대게 되는 것 같아.
+
+또 너는 내가 무심코 지나친 말까지 기억하고, 나중에 자연스럽게 챙겨주는 사람이라서 더 고마워.
+그 행동 하나하나가 너의 진심이란 걸 알기에, 내가 더 너를 아끼게 되는 것 같아.
+
+그러다 보니 내가 제일 아끼는 너가 힘든 모습을 보이면 나도 힘들게 되는 것 같아.
+이전에도 이야기 했지만 나도 너처럼 너에게 보이는 내 모습은 모두 진짜야.
+이 점은 꼭 기억해줬으면 해.
+
+앞으로 나는 네 옆에서 감정적으로만 좋은 사람이 아니라,
+네가 믿을 수 있는 사람, 함께 방향을 맞추고 가도 되는 사람이라는 걸 행동으로 보여주고 싶어.
+든든해서 마음 놓고 기댈 수 있는 사람이.. 될게.
+
+천천히, 꾸준히, 오래 가자 우리.
+고맙고, 많이 좋아해.
+      </textarea>
+    </div>
+
+    <button class="btn-primary" id="previewBtn">편지 확인하기</button>
+
+    <div id="previewBox" class="hidden">
+      <div class="date" id="dateArea"></div>
+      <div class="preview" id="letterPreview"></div>
+      <button class="btn-secondary" id="copyBtn" style="margin-top:10px;">복사하기</button>
+    </div>
+
+  </div>
+
+  <script>
+    const CORRECT_PASSWORD = "0606";
+
+    const pwInput = document.getElementById("pwInput");
+    const pwBtn = document.getElementById("pwBtn");
+    const pwScreen = document.getElementById("passwordScreen");
+    const letterScreen = document.getElementById("letterScreen");
+    const pwError = document.getElementById("pwError");
+
+    pwBtn.addEventListener("click", () => {
+      if (pwInput.value === CORRECT_PASSWORD) {
+        pwScreen.classList.add("hidden");
+        letterScreen.classList.remove("hidden");
+      } else {
+        pwError.style.display = "block";
+      }
+    });
+
+    pwInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") pwBtn.click();
+    });
+
+    const previewBtn = document.getElementById("previewBtn");
+    const previewBox = document.getElementById("previewBox");
+    const previewArea = document.getElementById("letterPreview");
+    const dateArea = document.getElementById("dateArea");
+
+    previewBtn.addEventListener("click", () => {
+      const toName = document.getElementById("toName").value.trim();
+      const fromName = document.getElementById("fromName").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      const today = new Date();
+      const formatted =
+        `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
+
+      dateArea.textContent = "📅 " + formatted;
+      previewArea.textContent = `${toName}\n\n${message}\n\n- ${fromName}`;
+
+      previewBox.classList.remove("hidden");
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const text = previewArea.textContent;
+      await navigator.clipboard.writeText(text);
+      alert("복사 완료! 💗");
+    });
+  </script>
+
+</body>
+</html>
