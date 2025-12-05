@@ -4,18 +4,21 @@
   <meta charset="UTF-8" />
   <title>비밀 편지함 💌🔐</title>
 
-  <!-- 🔥 SNS 미리보기 카드 설정 (최종 적용됨) -->
+  <!-- ⭐ 모바일 자동 맞춤 (확대 필요 문제 해결) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 🔥 Instagram DM / 카카오톡 / 메시지 앱에서 보이는 미리보기 카드 설정 -->
   <meta property="og:title" content="몽몽이가 보낸 비밀 편지 💌">
   <meta property="og:description" content="열어보기 전에 심장 준비해…">
-  <meta property="og:image" content="https://raw.githubusercontent.com/juna915/our-secret-letter-0606/main/og_image.png">
+  <meta property="og:image" content="https://raw.githubusercontent.com/juna915/we-are-secret-letter-0606/main/og_image.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://juna915.github.io/our-secret-letter-0606/">
+  <meta property="og:url" content="https://juna915.github.io/we-are-secret-letter-0606/">
 
   <!-- 🔥 Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="몽몽이가 보낸 비밀 편지 💌">
   <meta name="twitter:description" content="열어보기 전에 심장 준비해…">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/juna915/our-secret-letter-0606/main/og_image.png">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/juna915/we-are-secret-letter-0606/main/og_image.png">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,7 +33,6 @@
       padding: 20px;
     }
 
-    /* 전체 박스 */
     .container {
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(8px);
@@ -90,7 +92,6 @@
       background: #fff;
       border-color: #ff4d6d;
       box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.2);
-      outline: none;
     }
 
     textarea {
@@ -167,7 +168,6 @@
     <button class="btn-primary" id="pwBtn">열기</button>
     <p id="pwError" style="color:#ff4d6d; margin-top:10px; font-size:13px; display:none;">비밀번호가 틀렸어요!</p>
   </div>
-
 
   <!-- 💌 편지 작성 화면 -->
   <div class="container hidden" id="letterScreen">
